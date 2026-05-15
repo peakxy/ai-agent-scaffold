@@ -2,7 +2,9 @@ package cn.bugstack.ai.domain.agent.service.armory.factory;
 
 import cn.bugstack.ai.domain.agent.model.valobj.AiAgentConfigTableVO;
 import cn.bugstack.ai.domain.agent.model.valobj.properties.AiAgentAutoConfigProperties;
+import cn.bugstack.ai.domain.agent.service.armory.node.workflow.SequentialAgentNode;
 import com.google.adk.agents.BaseAgent;
+import com.google.adk.agents.SequentialAgent;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,6 +39,11 @@ public class DefaultArmoryFactory {
          * llm model
          */
         private ChatModel chatModel;
+
+        /**
+         * 暂时当作最后一个智能体节点
+         */
+        private SequentialAgent sequentialAgent;
 
         /**
          * 智能体配置组
