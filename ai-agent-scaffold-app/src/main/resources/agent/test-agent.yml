@@ -20,12 +20,12 @@ ai:
                 - sse:
                     name: baidu-search
                     base-uri: http://appbuilder.baidu.com/v2/ai_search/mcp/
-                    sse-endpoint: sse?api_key=bce-v3/ALTAK-JFZXXLpfxhAutDQvJ32Ei/4492c1879b8c2f0df4612ef5b4a52df1c1fba9f7
+                    sse-endpoint: sse?api_key=bce-v3/ALTAK-wSdZlznYmRrBYLRTFh5C3/f358dc37a271943e3e2822d4e722952593f818db
                     request-timeout: 5000
                 - sse:
                     name: baidu-map
                     base-uri: https://mcp.map.baidu.com/
-                    sse-endpoint: sse?ak=gML9024gBaCOnvLZRG6evxKRPFRorrjK
+                    sse-endpoint: sse?ak=dZ58g0wkFTWW7K1APT33oWu5x57wg8U9
                     request-timeout: 5000
             agents:
               - name: CodeWriterAgent

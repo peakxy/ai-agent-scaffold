@@ -52,19 +52,25 @@ public class ChatModelNode extends AbstractArmorySupport {
 
         List<McpSyncClient> mcpSyncClients = new ArrayList<>();
         List<AiAgentConfigTableVO.Module.ChatModel.ToolMcp> toolMcpList = chatModelConfig.getToolMcpList();
-        for (AiAgentConfigTableVO.Module.ChatModel.ToolMcp toolMcp : toolMcpList) {
-            mcpSyncClients.add(createMcpSyncClient(toolMcp));
+        if (null != toolMcpList && !toolMcpList.isEmpty()) {
+            for (AiAgentConfigTableVO.Module.ChatModel.ToolMcp toolMcp : toolMcpList) {
+                mcpSyncClients.add(createMcpSyncClient(toolMcp));
+            }
+        }
+
+        OpenAiChatOptions.Builder optionsBuilder = OpenAiChatOptions.builder()
+                .model(chatModelConfig.getModel());
+
+        if (!mcpSyncClients.isEmpty()) {
+            optionsBuilder.toolCallbacks(SyncMcpToolCallbackProvider.builder()
+                    .mcpClients(mcpSyncClients)
+                    .build()
+                    .getToolCallbacks());
         }
 
         ChatModel chatModel = OpenAiChatModel.builder()
                 .openAiApi(openAiApi)
-                .defaultOptions(OpenAiChatOptions.builder()
-                        .model(chatModelConfig.getModel())
-                        .toolCallbacks(SyncMcpToolCallbackProvider.builder()
-                                .mcpClients(mcpSyncClients)
-                                .build()
-                                .getToolCallbacks())
-                        .build())
+                .defaultOptions(optionsBuilder.build())
                 .build();
 
         dynamicContext.setChatModel(chatModel);

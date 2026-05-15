@@ -39,3 +39,5 @@ build/
 .DS_Store
 /.idea/
 /data/log/
+/ai-agent-scaffold-app/data/log/log_error.log
+/ai-agent-scaffold-app/data/log/log_info.log
