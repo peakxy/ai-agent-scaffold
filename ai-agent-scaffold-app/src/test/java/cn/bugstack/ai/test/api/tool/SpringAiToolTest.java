@@ -4,12 +4,15 @@ import io.modelcontextprotocol.client.McpClient;
 import io.modelcontextprotocol.client.McpSyncClient;
 import io.modelcontextprotocol.client.transport.HttpClientSseClientTransport;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
 /**
@@ -51,8 +54,8 @@ public class SpringAiToolTest {
     public static McpSyncClient sseMcpClient() {
 
         // 自己申请 api_key
-        HttpClientSseClientTransport sseClientTransport = HttpClientSseClientTransport.builder("http://appbuilder.baidu.com/v2/ai_search/mcp/")
-                .sseEndpoint("sse?api_key=bce-v3/ALTAK-wSdZlznYmRrBYLRTFh5C3/f358dc37a271943e3e2822d4e722952593f818db")
+        HttpClientSseClientTransport sseClientTransport = HttpClientSseClientTransport.builder("http://appbuilder.baidu.com")
+                .sseEndpoint("/v2/ai_search/mcp/sse?api_key=bce-v3/ALTAK-wSdZlznYmRrBYLRTFh5C3/f358dc37a271943e3e2822d4e722952593f818db")
                 .build();
 
         McpSyncClient mcpSyncClient = McpClient.sync(sseClientTransport).requestTimeout(Duration.ofMinutes(360)).build();
@@ -60,6 +63,28 @@ public class SpringAiToolTest {
         log.info("Tool SSE MCP Initialized {}", init_sse);
 
         return mcpSyncClient;
+    }
+
+    @Test
+    public void test_url() throws MalformedURLException {
+        String fullUrl = "http://appbuilder.baidu.com/v2/ai_search/mcp/sse?api_key=bce-v3/ALTAK-wSdZlznYmRrBYLRTFh5C3/f358dc37a271943e3e2822d4e722952593f818db";
+
+        URL url = new URL(fullUrl);
+
+        String protocol = url.getProtocol();
+        String host = url.getHost();
+        int port = url.getPort();
+
+        String baseUrl = port == -1 ? protocol + "://" + host : protocol + "://" + host + ":" + port;
+        String endPoint = "";
+
+        int index = fullUrl.indexOf(baseUrl);
+        if (index != -1) {
+            endPoint = fullUrl.substring(index + baseUrl.length());
+        }
+
+        log.info("baseUrl:{}", baseUrl);
+        log.info("endPoint:{}", endPoint);
     }
 
 }
