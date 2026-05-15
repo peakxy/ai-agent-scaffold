@@ -11,10 +11,7 @@ import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author: Xuyifeng
@@ -56,6 +53,21 @@ public class DefaultArmoryFactory {
 
         public <T> T getValue(String key) {
             return (T) dataObject.get(key);
+        }
+
+        public List<BaseAgent> queryAgentList(List<String> agentNames) {
+            if (agentNames == null || agentNames.isEmpty() || agentGroup == null) {
+                return Collections.emptyList();
+            }
+            List<BaseAgent> agents = new ArrayList<>();
+            for (String name : agentNames) {
+                BaseAgent baseAgent = agentGroup.get(name);
+                if (null != baseAgent) {
+                    agents.add(baseAgent);
+                }
+            }
+
+            return agents;
         }
 
     }
