@@ -5,6 +5,7 @@ import cn.bugstack.ai.domain.agent.model.valobj.AiAgentConfigTableVO;
 import cn.bugstack.ai.domain.agent.model.valobj.AiAgentRegisterVO;
 import cn.bugstack.ai.domain.agent.service.armory.AbstractArmorySupport;
 import cn.bugstack.ai.domain.agent.service.armory.factory.DefaultArmoryFactory;
+import cn.bugstack.ai.domain.agent.service.armory.matter.patch.MySpringAi;
 import cn.bugstack.wrench.design.framework.tree.StrategyHandler;
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.models.springai.SpringAI;
@@ -40,7 +41,7 @@ public class AgentNode extends AbstractArmorySupport {
             LlmAgent llmAgent = LlmAgent.builder()
                     .name(agentConfig.getName())
                     .description(agentConfig.getDescription())
-                    .model(new SpringAI(chatModel))
+                    .model(new MySpringAi(chatModel))
                     .instruction(agentConfig.getInstruction())
                     .outputKey(agentConfig.getOutputKey()) // 下一个agent可以通过这个key拿到当前agent的结果
                     .build();
