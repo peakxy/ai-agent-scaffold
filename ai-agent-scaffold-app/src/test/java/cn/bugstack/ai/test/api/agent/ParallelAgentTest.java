@@ -16,16 +16,16 @@ public class ParallelAgentTest {
 
     public static void main(String[] args) {
         OpenAiApi openAiApi = OpenAiApi.builder()
-                .baseUrl("https://api.deepseek.com")
-                .apiKey("sk-388898ed7b754d15b0afd6d89db58d67")
-                //.completionsPath("v1/chat/completions")
-                //.embeddingsPath("v1/embeddings")
+                .baseUrl("https://api-s.zwenooo.link/")
+                .apiKey("sk-6su8zF5T3JagKwX44nwLGzhnK6UwtUIbUeB6atnZ1Qtp3gZk")
+                .completionsPath("v1/chat/completions")
+                .embeddingsPath("v1/embeddings")
                 .build();
 
         ChatModel chatModel = OpenAiChatModel.builder()
                 .openAiApi(openAiApi)
                 .defaultOptions(OpenAiChatOptions.builder()
-                        .model("deepseek-chat")
+                        .model("gpt-5.5")
                         .build())
                 .build();
 

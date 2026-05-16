@@ -10,12 +10,12 @@ ai:
             agent-desc: 单一智能体
           module:
             ai-api:
-              base-url: https://api.deepseek.com
-              api-key: sk-388898ed7b754d15b0afd6d89db58d67
+              base-url: https://api-s.zwenooo.link/
+              api-key: sk-6su8zF5T3JagKwX44nwLGzhnK6UwtUIbUeB6atnZ1Qtp3gZk
               completions-path: v1/chat/completions
               embeddings-path: v1/embeddings
             chat-model:
-              model: deepseek-chat
+              model: gpt-5.5
               tool-mcp-list:
                 - sse:
                     name: baidu-search
