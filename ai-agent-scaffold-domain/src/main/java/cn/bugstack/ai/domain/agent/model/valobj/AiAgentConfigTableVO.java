@@ -38,6 +38,8 @@ public class AiAgentConfigTableVO {
 
         private List<AgentWorkflow> agentWorkflows;
 
+        private Runner runner;
+
         @Data
         public static class AiApi {
             private String baseUrl;
@@ -99,6 +101,11 @@ public class AiAgentConfigTableVO {
             private List<String> subAgents;
             private String description;
             private Integer maxIterations = 3;
+        }
+
+        @Data
+        public static class Runner {
+            private String agentName;
         }
 
     }

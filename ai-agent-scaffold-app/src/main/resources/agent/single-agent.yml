@@ -1,0 +1,31 @@
+ai:
+  agent:
+    config:
+      tables:
+        testAgent02:
+          app-name: testAgent02
+          agent:
+            agent-id: 100002
+            agent-name: 单一智能体
+            agent-desc: 单一智能体
+          module:
+            ai-api:
+              base-url: https://api.deepseek.com
+              api-key: sk-388898ed7b754d15b0afd6d89db58d67
+              completions-path: v1/chat/completions
+              embeddings-path: v1/embeddings
+            chat-model:
+              model: deepseek-chat
+              tool-mcp-list:
+                - sse:
+                    name: baidu-search
+                    base-uri: http://appbuilder.baidu.com/v2/ai_search/mcp/
+                    sse-endpoint: sse?api_key=bce-v3/ALTAK-wSdZlznYmRrBYLRTFh5C3/f358dc37a271943e3e2822d4e722952593f818db
+                    request-timeout: 500000
+            agents:
+              - name: singleAgent
+                description: 小傅哥学习项目计划
+                instruction: |
+                  通过百度检索小傅哥编程实战项目，并根据检索内容，针对初学用户给出学习计划。
+            runner:
+              agent-name: singleAgent
