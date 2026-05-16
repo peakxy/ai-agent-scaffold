@@ -15,13 +15,15 @@ ai:
               completions-path: v1/chat/completions
               embeddings-path: v1/embeddings
             chat-model:
-              model: deepseek-v4-flash
+              model: deepseek-chat
               tool-mcp-list:
                 - sse:
                     name: baidu-search
                     base-uri: http://appbuilder.baidu.com/v2/ai_search/mcp/
                     sse-endpoint: sse?api_key=bce-v3/ALTAK-wSdZlznYmRrBYLRTFh5C3/f358dc37a271943e3e2822d4e722952593f818db
                     request-timeout: 500000
+                - local:
+                    name: myToolCallbackProvider
             agents:
               - name: singleAgent
                 description: 小傅哥学习项目计划
