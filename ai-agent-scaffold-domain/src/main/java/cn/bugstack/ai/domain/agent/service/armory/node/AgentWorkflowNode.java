@@ -41,25 +41,32 @@ public class AgentWorkflowNode extends AbstractArmorySupport {
         AiAgentConfigTableVO aiAgentConfigTableVO = requestParameter.getAiAgentConfigTableVO();
         List<AiAgentConfigTableVO.Module.AgentWorkflow> agentWorkflows = aiAgentConfigTableVO.getModule().getAgentWorkflows();
 
-        if (null == agentWorkflows || agentWorkflows.isEmpty()) {
+        if (null == agentWorkflows || agentWorkflows.isEmpty() || dynamicContext.getCurrentStepIndex() >= agentWorkflows.size()) {
+            // 清空结果值
+            dynamicContext.setCurrentAgentWorkflow(null);
+            // 路由下一个节点
             return router(requestParameter, dynamicContext);
         }
 
-        dynamicContext.setAgentWorkflows(agentWorkflows);
+        //dynamicContext.setAgentWorkflows(agentWorkflows);
+        dynamicContext.setCurrentAgentWorkflow(agentWorkflows.get(dynamicContext.getCurrentStepIndex()));
+        // 步骤值增加
+        dynamicContext.addCurrentStepIndex();
 
         return router(requestParameter, dynamicContext);
     }
 
     @Override
     public StrategyHandler<ArmoryCommandEntity, DefaultArmoryFactory.DynamicContext, AiAgentRegisterVO> get(ArmoryCommandEntity requestParameter, DefaultArmoryFactory.DynamicContext dynamicContext) throws Exception {
-        List<AiAgentConfigTableVO.Module.AgentWorkflow> agentWorkflows = dynamicContext.getAgentWorkflows();
+        //List<AiAgentConfigTableVO.Module.AgentWorkflow> agentWorkflows = dynamicContext.getAgentWorkflows();
+        AiAgentConfigTableVO.Module.AgentWorkflow currentAgentWorkflow = dynamicContext.getCurrentAgentWorkflow();
 
-        if (null == agentWorkflows || agentWorkflows.isEmpty()) {
+        if (null == currentAgentWorkflow) {
             return runnerNode;
         }
 
-        AiAgentConfigTableVO.Module.AgentWorkflow agentWorkflow = agentWorkflows.get(0);
-        String type = agentWorkflow.getType();
+        //AiAgentConfigTableVO.Module.AgentWorkflow agentWorkflow = agentWorkflows.get(0);
+        String type = currentAgentWorkflow.getType();
         AgentTypeEnum agentTypeEnum = AgentTypeEnum.fromType(type);
 
         if (null == agentTypeEnum) {
@@ -72,7 +79,7 @@ public class AgentWorkflowNode extends AbstractArmorySupport {
             case "loopAgentNode" -> loopAgentNode;
             case "parallelAgentNode" -> parallelAgentNode;
             case "sequentialAgentNode" -> sequentialAgentNode;
-            default -> defaultStrategyHandler;
+            default -> runnerNode;
         };
     }
 }
