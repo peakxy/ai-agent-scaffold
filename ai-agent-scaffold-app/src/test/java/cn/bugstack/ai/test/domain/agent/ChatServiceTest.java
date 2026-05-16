@@ -33,7 +33,7 @@ public class ChatServiceTest {
 
     @Test
     public void test_handleMessage_01() {
-        List<String> message = chatService.handleMessage("100002", "peakxy", "你具备哪些能力");
+        List<String> message = chatService.handleMessage("100002", "peakxy", "基于 Skill，回答你具备哪些能力");
         log.info("测试结果:{}", JSON.toJSONString(message));
     }
 

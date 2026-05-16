@@ -24,6 +24,11 @@ ai:
                     request-timeout: 500000
                 - local:
                     name: myToolCallbackProvider
+              tool-skill-list:
+                - type: resource
+                - path: agent/skills
+#                - type: directory
+#                - path: /Users/xuyifeng/1024/project/ai-agent-scaffold/ai-agent-scaffold-app/src/main/resources/agent/skills
             agents:
               - name: singleAgent
                 description: 小傅哥学习项目计划

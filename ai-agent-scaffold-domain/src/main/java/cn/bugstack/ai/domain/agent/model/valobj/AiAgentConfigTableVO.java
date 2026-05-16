@@ -52,8 +52,8 @@ public class AiAgentConfigTableVO {
         public static class ChatModel {
 
             private String model;
-
             private List<ToolMcp> toolMcpList;
+            private List<ToolSkill> toolSkillList;
 
             @Data
             public static class ToolMcp {
@@ -90,6 +90,13 @@ public class AiAgentConfigTableVO {
                 public static class LocalParameters {
                     private String name; // beanName
                 }
+            }
+
+            @Data
+            public static class ToolSkill {
+                // resource
+                private String type = "directory";
+                private String path;
             }
         }
 
